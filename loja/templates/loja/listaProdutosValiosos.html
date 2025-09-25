@@ -1,9 +1,7 @@
 {% extends "base_loja.html" %}
-
-{% block title %} Lista de Produtos {% endblock %}
-
+{% block title %} Lista de Produtos Valiosos {% endblock %}
 {% block content %}
-  <h2 style="text-align: center">Produtos disponíveis</h2>
+  <h2 style="color: #b89d05ff; text-align: center">Produtos Valiosos</h2>
 
   <style>
     .grid-produtos {
@@ -29,33 +27,45 @@
       display: inline-block;
       margin-top: 10px;
       padding: 10px 20px;
-      background-color: #007bff;
+      background-color: #887402ff;
       color: white;
       text-decoration: none;
       border-radius: 5px;
       transition: background-color 0.3s;
     }
     .btn-detalhes:hover {
-      background-color: #0056b3;
+      background-color: #fcde34ff;
+    }
+    .title{
+      color: #887402ff
+    }
+    body{
+      background-color: #fcde34ff;
+    }
+    header{
+      background-color: #b89d05ff;
+    }
+    nav{
+      background-color: #887402ff
     }
   </style>
 
   <div class="grid-produtos">
-    {% for produto in produtosDisponiveis %}
+    {% for produto in produtosValiosos %}
       <div class="card-produto">
         <div class="img-fake" style="background-color: #eee; height: 150px; border-radius: 4px; margin-bottom: 10px;">
           <!-- Aqui poderia ir uma imagem real -->
            
           <p style="line-height: 150px;">Imagem</p>
         </div>
-        <h3>{{ produto.nome }}</h3>
-        <p><strong>Preço:</strong> R$ {{ produto.preco }}</p>
-        <p><strong>Categoria:</strong> {{ produto.categoria.nome }}</p>
-        <p><strong>Estoque:</strong> {{ produto.estoque }}</p>
-        <a class="btn-detalhes" href="{% url 'detalhe_produto' produto.id %}">Ver Detalhes</a>
+        <h3 style="color: #6b6904ff">{{ produto.nome }}</h3>
+        <p class="title"><strong>Preço:</strong> R$ {{ produto.preco }}</p>
+        <p class="title"><strong>Categoria:</strong> {{ produto.categoria.nome }}</p>
+        <p class="title"><strong>Estoque:</strong> {{ produto.estoque }}</p>
+        <a class="btn-detalhes" href="{% url 'detalhe_produto_valioso' produto.id %}">Ver Detalhes</a>
       </div>
     {% empty %}
-      <p>Nenhum produto disponível no momento.</p>
+      <p style="color: ">Nenhum produto disponível no momento.</p>
     {% endfor %}
   </div>
 {% endblock %}

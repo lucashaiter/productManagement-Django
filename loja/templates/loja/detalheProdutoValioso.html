@@ -18,11 +18,11 @@
   }
   .product-price {
     font-size: 2em;
-    color: #007bff;
+    color: #887402ff;
     margin-bottom: 20px;
   }
   .add-to-cart-btn {
-    background-color: #28a745;
+    background-color: #887402ff;
     color: white;
     padding: 15px 30px;
     border: none;
@@ -32,36 +32,43 @@
     transition: background-color 0.3s;
   }
   .add-to-cart-btn:hover {
-    background-color: #218838;
+    background-color: #fcde34ff;
   }
-  .back{
-    background-color: #007bff;
+  .back {
+    background-color: #b89d05ff;
     padding: 20px;
     border-radius: 8px;
     color: white;
-    text-decoration: none
+    text-decoration: none;
   }
-
+  body {
+    background-color: #fcde34ff;
+  }
+  header {
+    background-color: #b89d05ff;
+  }
+  nav {
+    background-color: #887402ff;
+  }
 </style>
 
 <div class="product-detail">
   <div class="product-image">
     <!-- Em um site real, aqui iria uma tag <img> -->
-    [Imagem do {{ produto.nome }}]
+    [Imagem do {{ produtoValioso.nome }}]
   </div>
   <div class="product-info">
-    <h1>{{ produto.nome }}</h1>
-    <p class="product-price">R$ {{ produto.preco }}</p>
-    <p>{{ produto.descricao }}</p>
-    <p><strong>Categoria:</strong> {{ produto.categoria.nome }}</p>
-    <p><strong>Em estoque:</strong> {{ produto.estoque }} unidades</p>
+    <h1>{{ produtoValioso.nome }}</h1>
+    <p class="product-price">R$ {{ produtoValioso.preco }}</p>
+    <p>{{ produtoValioso.descricao }}</p>
+    <p><strong>Categoria:</strong> {{ produtoValioso.categoria.nome }}</p>
+    <p><strong>Em estoque:</strong> {{ produtoValioso.estoque }} unidades</p>
     <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
   </div>
 </div>
-<br>
-<br>
-<a class="back" 
-href="{% url 'lista_produtos' %}"
-  >Voltar para a lista de produtos</a
+<br />
+<br />
+<a class="back" href="{% url 'lista_produtos_valiosos' %}"
+  >Voltar para a lista de produtos valiosos</a
 >
 {% endblock %}
