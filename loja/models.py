@@ -26,6 +26,9 @@ class Produto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name='produtos')
     estoque = models.PositiveIntegerField(default=0)
 
+    def valor_total_em_estoque(self):
+        return self.preco * self.estoque
+
     def __str__(self):
         return self.nome
 
@@ -49,6 +52,11 @@ class ItemPedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     quantidade = models.PositiveIntegerField()
     preco_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        if not self.preco_unitario and self.produto and self.produto.preco:
+            self.preco_unitario = self.produto.preco
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.quantidade}x {self.produto.nome} no Pedido {self.pedido.id}"
