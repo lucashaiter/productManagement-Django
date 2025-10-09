@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Produto
+from .models import Produto, Cliente
 from django.views.generic import ListView, DetailView
 
 # Defs
 def paginaInicialLoja(request):
-    return render(request, 'base_loja.html')
+    return render(request, 'baseLoja.html')
 
 # -------------------------------------------------------------------------
 
@@ -43,14 +43,20 @@ def detalheProdutoValiosoView(request, produto_id):
 
 # -------------------------------------------------------------------------
 
-# def produtoListFBV(request):
-#     produtosEstoque = Produto.objects.filter(estoque__gt = 0).order_by('nome')
-#     contexto = {
-#         'produtos': produtosEstoque,
-#         'tituloPagina': 'Nossos produtos disponíveis'
-#     }
+def listaClientesView(request):
+    clientes = Cliente.objects.all()
+    contexto = {'clientesLista': clientes}
+    return render(request, 'loja/listaClientes.html', contexto)
+
+# -------------------------------------------------------------------------
+def produtoListFBV(request):
+    produtosEstoque = Produto.objects.filter(estoque__gt = 0).order_by('nome')
+    contexto = {
+        'produtos': produtosEstoque,
+        'tituloPagina': 'Nossos produtos disponíveis'
+    }
     
-#     return render(request, 'loja/listaProdutosProdutos.html', contexto)
+    return render(request, 'loja/listaProdutosProdutos.html', contexto)
 
 # --------------------------------------------------------------------------
 
