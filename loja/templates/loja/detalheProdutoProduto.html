@@ -71,4 +71,11 @@
 <a class="back" href="{% url 'lista_produtos_produtos' %}"
   >Voltar para a lista de produtos</a
 >
+<br />
+<br />
+<br />
+<br />
+{% comment %} <a href="{% url 'produto_update' pk=produto.pk %}">Editar Produto</a> {% endcomment %}
+<a class="back" href="{% url 'produto_delete' pk=produto.pk %}">Apagar Produto</a> 
+
 {% endblock %}

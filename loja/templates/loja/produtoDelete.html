@@ -1,0 +1,40 @@
+{% extends 'baseLoja.html' %} {% block title %}{{ object.nome }}{% endblock %}
+{% block content %}
+<style>
+  body {
+    background-color: #084e01ff;
+  }
+  header {
+    background-color: #11b602ff;
+  }
+  nav {
+    background-color: #084e01ff;
+  }
+  .back {
+    background-color: #084e01ff;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+  }
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+</style>
+
+<div class="form">
+    <h2>Confirmar exclusão</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <p>Tem certeza que deseja apagar o produto?</p>
+        <div style="flex-direction: row">
+            <button class="back" type="submit">Sim</button>
+            <a class="back" href="{% url 'detalhe_produto_produto' pk=object.pk %}">Não</a>
+        <div/>
+    </form>
+<div/>
+
+{% endblock %}

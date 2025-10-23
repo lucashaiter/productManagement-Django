@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ProdutoListView, ProdutoDetailView
+from .views import ProdutoListView, ProdutoDetailView, ProdutoDeleteView
 
 appName = "loja"
 
@@ -21,7 +21,10 @@ urlpatterns = [
     
     # CBV - Class
     path('lista-produtos-produtos/', ProdutoListView.as_view() ,name="lista_produtos_produtos"),
-    path('lista-produtos-produto/produtoProduto/<int:pk>/', ProdutoDetailView.as_view(), name="detalhe_produto_produto"),
+    path('lista-produtos-produtos/produtoProduto/<int:pk>/', ProdutoDetailView.as_view(), name="detalhe_produto_produto"),
     
-    path('clientes/', views.listaClientesView, name="lista_clientes")
+    path('clientes/', views.listaClientesView, name="lista_clientes"),
+    
+    # path('lista-produtos-produtos/produto/<int:pk>/editar/', ProdutoUpdateView.as_view(), name="produto_update"),
+    path('lista-produtos-produtos/produto/<int:pk>/deletar/', ProdutoDeleteView.as_view(), name="produto_delete"),
 ]
