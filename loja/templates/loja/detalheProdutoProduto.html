@@ -75,7 +75,11 @@
 <br />
 <br />
 <br />
-{% comment %} <a href="{% url 'produto_update' pk=produto.pk %}">Editar Produto</a> {% endcomment %}
+<a class="back" href="{% url 'produto_update' pk=produto.pk %}">Editar Produto</a>
+<br />
+<br />
+<br />
+<br />
 <a class="back" href="{% url 'produto_delete' pk=produto.pk %}">Apagar Produto</a> 
 
 {% endblock %}

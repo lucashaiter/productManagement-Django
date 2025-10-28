@@ -1,4 +1,5 @@
-{% extends 'baseLoja.html' %} {% block title %}{{ object.nome }}{% endblock %}
+{% extends 'baseLoja.html' %} 
+{% block title %}Login{% endblock %}
 {% block content %}
 <style>
   body {
@@ -26,18 +27,12 @@
 </style>
 
 <div class="form">
-    {% if object %}
-        <h2>Editar Produto: {{ object.nome }}</h2>
-        {% else %}
-        <h2>Adicionar Novo Produto</h2>
-    {% endif %}
-
-    <form method="post">
-        {% csrf_token %} {# Essencial para segurança! #}
-        {{ form.as_p }} {# Renderiza cada campo do formulário como um parágrafo <p> #}
-        <button type="submit" class="back">Guardar</button> 
+    <h2>Login</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="back" type="submit">Entrar</button>
     </form>
 <div/>
-
-
+  
 {% endblock %}

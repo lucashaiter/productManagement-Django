@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Produto, Cliente
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
+from .forms import ProdutoForm
+from django.contrib.auth.forms import UserCreationForm
+
 
 # Defs
 def paginaInicialLoja(request):
@@ -80,11 +83,11 @@ class ProdutoDetailView(DetailView):
 
 # UpdateView
 
-# class ProdutoUpdateView(UpdateView):
-#     model = Produto
-#     form_class = ProdutoForm
-#     template_name = 'loja/produtoForm.html'
-#     success_url = reverse_lazy('lista_produtos_produtos')
+class ProdutoUpdateView(UpdateView):
+    model = Produto
+    form_class = ProdutoForm
+    template_name = 'loja/produtoForm.html'
+    success_url = reverse_lazy('lista_produtos_produtos')
 
 # Delete View
 
@@ -92,3 +95,18 @@ class ProdutoDeleteView(DeleteView):
     model = Produto
     template_name = 'loja/produtoDelete.html'  # Para confirmação da deleção
     success_url = reverse_lazy('lista_produtos_produtos')
+    
+# Create View
+
+class ProdutoCreateView(CreateView):
+    model = Produto
+    form_class = ProdutoForm
+    template_name = 'loja/produtoForm.html'
+    success_url = reverse_lazy('lista_produtos_produtos')
+    
+# --------------------------------------------------------------------------
+
+class RegistroView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/registro.html'

@@ -49,6 +49,10 @@
     }
   </style>
 
+
+  <div style="display: flex; justify-content: center"><a class="btn-detalhes" href="{% url 'produto_create' %}">Adicionar Novo Produto</a></div>
+  <br/>
+  <br/>
   <div class="grid-produtos">
     {% for produto in produtos %}
       <div class="card-produto">
