@@ -1,6 +1,7 @@
 # loja/models.py
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Tabela 1: Cliente
 class Cliente(models.Model):
@@ -25,6 +26,13 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT, related_name='produtos')
     estoque = models.PositiveIntegerField(default=0)
+    # User
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
 
     def valor_total_em_estoque(self):
         return self.preco * self.estoque

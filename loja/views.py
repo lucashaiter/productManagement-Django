@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, UpdateView, DeleteView, C
 from django.urls import reverse_lazy
 from .forms import ProdutoForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # Defs
@@ -81,28 +82,38 @@ class ProdutoDetailView(DetailView):
     
 # --------------------------------------------------------------------------
 
-# UpdateView
-
-class ProdutoUpdateView(UpdateView):
+# Create View
+class ProdutoCreateView(LoginRequiredMixin, CreateView):
     model = Produto
     form_class = ProdutoForm
     template_name = 'loja/produtoForm.html'
     success_url = reverse_lazy('lista_produtos_produtos')
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+    
+
+# Update View
+class ProdutoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Produto
+    form_class = ProdutoForm
+    template_name = 'loja/produtoForm.html'
+    success_url = reverse_lazy('lista_produtos_produtos')
+    
+    def test_func(self):
+        produto = self.get_object()
+        return self.request.user == produto.usuario
 
 # Delete View
-
-class ProdutoDeleteView(DeleteView):
+class ProdutoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Produto
     template_name = 'loja/produtoDelete.html'  # Para confirmação da deleção
     success_url = reverse_lazy('lista_produtos_produtos')
     
-# Create View
-
-class ProdutoCreateView(CreateView):
-    model = Produto
-    form_class = ProdutoForm
-    template_name = 'loja/produtoForm.html'
-    success_url = reverse_lazy('lista_produtos_produtos')
+    def test_func(self):
+        produto = self.get_object()
+        return self.request.user == produto.usuario
     
 # --------------------------------------------------------------------------
 
