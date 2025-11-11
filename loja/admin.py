@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Produto, Categoria, Cliente, ItemPedido, Pedido
+from django.utils.html import format_html
 
 @admin.action(description="Zerar estoque dos produtos selecionados")
 def zerarEstoque(modeladmin, request, queryset):
@@ -23,7 +24,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'descricao', 'preco', 'categoria', 'estoque', 'valor_total_em_estoque', 'usuario')
+    list_display = ('nome', 'descricao', 'preco', 'categoria', 'estoque', 'valor_total_em_estoque', 'usuario', 'display_image_thumb')
 
     list_filter = ('categoria', 'estoque')
 
@@ -33,18 +34,32 @@ class ProdutoAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Dados Principais', {
-            'fields': ('nome', 'categoria', 'descricao'),
+            'fields': ('nome', 'categoria', 'descricao', 'image'),
         }),
         ('Financeiro e Estoque', {
             'fields': ('preco', 'estoque', 'valor_total_em_estoque'),
         }),
     )
 
-    readonly_fields = ('valor_total_em_estoque',)
+    readonly_fields = ('valor_total_em_estoque', 'display_image_preview')
 
     def valor_total_em_estoque(self, obj):
         return obj.valor_total_em_estoque()
     valor_total_em_estoque.short_description = 'Valor Total em Estoque'
+    
+    
+    @admin.display(description='image')
+    def display_image_thumb(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="50" height="50" style="object-fit: cover;"/>', obj.image.url)
+        return "(sem imagem)"
+    
+    @admin.display(description='preview da imagem atual')
+    def display_image_preview(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="300"/>', obj.image.url)
+        return "(sem imagem)"
+    
     
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):

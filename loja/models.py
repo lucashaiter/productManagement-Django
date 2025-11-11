@@ -33,6 +33,12 @@ class Produto(models.Model):
         null=True,
         blank=True
     )
+    image = models.ImageField(
+        upload_to='produtos_imgs/',
+        null=False,
+        blank=True,
+        help_text="Imagem destaque do produto"
+    )
 
     def valor_total_em_estoque(self):
         return self.preco * self.estoque

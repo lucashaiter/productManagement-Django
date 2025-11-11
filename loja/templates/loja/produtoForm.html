@@ -32,7 +32,7 @@
         <h2>Adicionar Novo Produto</h2>
     {% endif %}
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %} {# Essencial para segurança! #}
         {{ form.as_p }} {# Renderiza cada campo do formulário como um parágrafo <p> #}
         <button type="submit" class="back">Guardar</button> 

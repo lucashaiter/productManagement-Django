@@ -9,7 +9,6 @@
     flex: 1;
     max-width: 400px;
     text-align: center;
-    background-color: #eee;
     padding: 20px;
     border-radius: 8px;
   }
@@ -55,7 +54,12 @@
 <div class="product-detail">
   <div class="product-image">
     <!-- Em um site real, aqui iria uma tag <img> -->
-    [Imagem do {{ produto.nome }}]
+    
+    {% if produto.image %}
+      <img src="{{ produto.image.url }}" alt="Imagem do {{ produto.nome }}" style="max-width: 100%">
+    {% else %}
+      <p>Produto sem imagem</p>
+   {% endif %}
   </div>
   <div class="product-info">
     <h1>{{ produto.nome }}</h1>
