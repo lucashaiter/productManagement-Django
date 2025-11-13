@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'loja',
     'django_cleanup',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

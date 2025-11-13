@@ -7,6 +7,11 @@ from .forms import ProdutoForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from .serializers import ProdutoSerializer
 
 # Defs
 def paginaInicialLoja(request):
@@ -121,3 +126,19 @@ class RegistroView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/registro.html'
+    
+    
+# --------------------------   API VIEW  ----------------------------------
+
+class ProdutoListAPIView(APIView):
+    def get(self, request, format=None):
+        produtos = Produto.objects.all();
+        serializer = ProdutoSerializer(produtos, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = ProdutoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save() 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

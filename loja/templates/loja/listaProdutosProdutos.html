@@ -57,9 +57,11 @@
     {% for produto in produtos %}
       <div class="card-produto">
         <div class="img-fake" style="background-color: #eee; height: 150px; border-radius: 4px; margin-bottom: 10px;">
-          <!-- Aqui poderia ir uma imagem real -->
-           
-          <p style="line-height: 150px;">Imagem</p>
+          {% if produto.image %}
+            <img src="{{ produto.image.url }}" alt="Imagem do {{ produto.nome }}" style="max-width: 100%; height: 150px">
+          {% else %}
+            <p>Produto sem imagem</p>
+          {% endif %}
         </div>
         <h3>{{ produto.nome }}</h3>
         <p><strong>Preço:</strong> R$ {{ produto.preco }}</p>
